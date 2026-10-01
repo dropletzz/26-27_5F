@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <title>SPA Gatti</title>
+
+        <style>
+            body {
+                padding: 20px;
+                text-align: center;
+            }
+
+            img {
+                height: 450px;
+            }
+
+            button {
+                padding: 10px;
+                margin: 20px;
+                background-color: powderblue;
+                border: 1px solid black;
+                border-radius: 3px;
+                font-size: 20px;
+            }
+
+            #gatti-salvati {
+                border: 5px solid black;
+                padding: 20px;
+
+                display: flex;
+                /* justify-content: center; */
+                /* justify-content: space-between; */
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+
+            #gatti-salvati img {
+                margin: 5px;
+                height: 100px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div> 
+            <button id="nuovo-gatto">Nuovo gatto</button>
+            <button id="salva-gatto">Salva gatto</button>
+        </div>
+
+        <img id="gatto-img" src="" alt="">
+
+        <div id="gatti-salvati">
+        </div>
+
+        <script>
+
+const imgTag = document.getElementById("gatto-img");
+
+const bottone = document.getElementById("nuovo-gatto");
+bottone.addEventListener("click", () => {
+    getCat();
+});
+const gattiSalvati = document.getElementById("gatti-salvati");
+
+const salva = document.getElementById("salva-gatto");
+salva.addEventListener("click", () => {
+    const newImg = document.createElement("img");
+    newImg.src = imgTag.src;
+    gattiSalvati.appendChild(newImg);
+});
+
+
+async function getCat() {
+    const url = "https://cataas.com/cat?json=true";
+    try {
+        const response = await fetch(url); // manda una richiesta HTTP GET all'url
+        console.log("RISPOSTA", response);
+        const data = await response.json(); // estrae i dati JSON dalla risposta
+        console.log("DATI", data.url);
+
+        imgTag.src = data.url; // inserisce l'url ricevuto nel campo src del tag <img> 
+    } catch (e) {
+        console.log("ERRORE", e.message);
+    }
+}
+
+getCat();
+
+        </script>
+    </body>
+</html>
