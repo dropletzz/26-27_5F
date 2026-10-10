@@ -51,6 +51,7 @@
         </div>
 
         <script>
+let arrayGatti = []; // array vuoto
 
 const imgTag = document.getElementById("gatto-img");
 
@@ -62,10 +63,21 @@ const gattiSalvati = document.getElementById("gatti-salvati");
 
 const salva = document.getElementById("salva-gatto");
 salva.addEventListener("click", () => {
-    const newImg = document.createElement("img");
-    newImg.src = imgTag.src;
-    gattiSalvati.appendChild(newImg);
+    arrayGatti.push(imgTag.src);
+    renderizzaGatti();
 });
+
+function renderizzaGatti() {
+    // svuotiamo il div "gatti-salvati"
+    gattiSalvati.innerHTML = "";
+
+    // riempiamo il div con i gatti nell'array
+    arrayGatti.forEach((urlGatto) => {
+        const newImg = document.createElement("img");
+        newImg.src = urlGatto;
+        gattiSalvati.appendChild(newImg);
+    })
+}
 
 
 async function getCat() {
